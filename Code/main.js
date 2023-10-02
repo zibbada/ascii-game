@@ -20,14 +20,14 @@ window.addEventListener('load', function () {
     class inputHandler {
         constructor() {
             window.addEventListener('keydown', function (e) {
-                var keyPressed = e.key;
+                var keyPressed = e.code;
                 switch (keyPressed) {
-                    case "a": theKeymap.left = true; break;
-                    case "s": theKeymap.down = true; break;
-                    case "w": theKeymap.up = true; break;
-                    case "d": theKeymap.right = true; break;
+                    case "KeyA": theKeymap.left = true; break;
+                    case "KeyS": theKeymap.down = true; break;
+                    case "KeyW": theKeymap.up = true; break;
+                    case "KeyD": theKeymap.right = true; break;
                 }
-                console.log(e.key)
+                console.log(e.code)
             })
 
             
