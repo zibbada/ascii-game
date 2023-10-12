@@ -1,6 +1,17 @@
+
 window.addEventListener('load', function () {
     const canvas = document.getElementById("canvas1");
     const ctx = canvas.getContext("2d");
+
+
+
+    const tileset = new Image(0,0);
+    var tilesetWidth = 20;
+    var tilesetHeight = 10;
+    var viewportZoom = 5;
+    tileset.src = "./pixil-frame-0.png";
+
+
     canvas.width = screen.width;
     canvas.height = screen.height;
 
@@ -42,40 +53,17 @@ window.addEventListener('load', function () {
         }
     }
 
-    class Player {
-        x = screen.width / 2;
-        y = screen.height / 2;
-        
-        update() {
-            if (theKeymap.left == true) {
-                x -= 1;
-            }
-            if (theKeymap.down == true) {
-                y += 1;
-            }
-            if (theKeymap.up == true) {
-                y -= 1;
-            }
-            if (theKeymap.right == true) {
-                x += 1;
-            }
-        }
-        draw() {
-            ctx.fillRect(x-4,y-4,8,8);
-        }
-    }
-
     class Game {
         constructor() {
             this.inputHandler = new inputHandler;
             this.player = new Player;
         }
         update() {
-            this.player.update();
+            this.player.update(theKeymap);
         }
 
         draw() {
-            this.player.draw();
+            this.player.draw(ctx,tileset);
         }
         
     }
@@ -84,7 +72,13 @@ window.addEventListener('load', function () {
 
     const game = new Game();
     function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.imageSmoothingEnabled = false;
+        ctx.fillStyle = "black";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "red";
+
+        
+        ctx.drawImage(tileset,0,0,tilesetWidth,tilesetHeight,0,0,tilesetWidth * viewportZoom,tilesetHeight * viewportZoom)
         game.update();
         game.draw();
         requestAnimationFrame(animate);
