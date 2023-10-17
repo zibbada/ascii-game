@@ -5,12 +5,7 @@ window.addEventListener('load', function () {
 
 
 
-    const tileset = new Image(0,0);
-    var tilesetWidth = 20;
-    var tilesetHeight = 10;
-    var viewportZoom = 5;
-    tileset.src = "./pixil-frame-0.png";
-
+ 
 
     canvas.width = screen.width;
     canvas.height = screen.height;
@@ -57,13 +52,15 @@ window.addEventListener('load', function () {
         constructor() {
             this.inputHandler = new inputHandler;
             this.player = new Player;
+            this.map = new Map;
         }
         update() {
             this.player.update(theKeymap);
         }
 
         draw() {
-            this.player.draw(ctx,tileset);
+            this.player.draw(ctx);
+            this.map.Draw(ctx);
         }
         
     }
@@ -78,7 +75,6 @@ window.addEventListener('load', function () {
         ctx.fillStyle = "red";
 
         
-        ctx.drawImage(tileset,0,0,tilesetWidth,tilesetHeight,0,0,tilesetWidth * viewportZoom,tilesetHeight * viewportZoom)
         game.update();
         game.draw();
         requestAnimationFrame(animate);

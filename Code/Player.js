@@ -22,9 +22,7 @@ class Player {
             theKeymap.right = false;
         }
     }
-    draw(ctx,img) {
-        
+    draw(ctx) {
         ctx.fillRect(this.x*25,this.y*25,25,25);
-        ctx.drawImage(img,10,0,5,5,this.x*25,this.y*25,5 * 5,5 * 5)
     }
 }
