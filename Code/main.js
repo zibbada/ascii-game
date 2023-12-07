@@ -53,14 +53,16 @@ window.addEventListener('load', function () {
             this.inputHandler = new inputHandler;
             this.player = new Player;
             this.map = new Map;
+            this.camera = new Camera;
         }
         update() {
             this.player.update(theKeymap);
+            this.camera.update(this.player)
         }
 
         draw() {
-            this.player.draw(ctx);
-            this.map.Draw(ctx);
+            this.player.draw(ctx,this.camera.x,this.camera.y);
+            this.map.Draw(ctx,this.camera.x,this.camera.y);
         }
         
     }

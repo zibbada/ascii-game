@@ -1,7 +1,8 @@
 class Player {
    constructor () {
-       this.x = 0;
-       this.y = 0;
+       this.x = screen.width/70;
+       this.y = screen.height/70;
+       console.log(this.x + " " + this.y)
    }
     
     update(theKeymap) {
@@ -22,7 +23,7 @@ class Player {
             theKeymap.right = false;
         }
     }
-    draw(ctx) {
-        ctx.fillRect(this.x*25,this.y*25,25,25);
+    draw(ctx,camX,camY) {
+        ctx.fillRect((this.x - camX)*35,(this.y - camY)*35,35,35);
     }
 }
