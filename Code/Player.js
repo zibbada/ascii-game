@@ -1,7 +1,7 @@
 class Player {
    constructor () {
-       this.x = screen.width/70;
-       this.y = screen.height/70;
+       this.x = 12;
+       this.y = 12;
        console.log(this.x + " " + this.y)
    }
     
