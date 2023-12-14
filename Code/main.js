@@ -62,7 +62,7 @@ window.addEventListener('load', function () {
 
         draw() {
             this.player.draw(ctx,this.camera.x,this.camera.y);
-            this.map.Draw(ctx,this.camera.x,this.camera.y);
+            this.map.Draw(ctx,this.camera.x,this.camera.y,this.player.x,this.player.y);
         }
         
     }
