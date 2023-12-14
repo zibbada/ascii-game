@@ -1,11 +1,12 @@
 class Camera {
-    constructor(){
-        this.x=0;
-        this.y=0;
+    constructor(target){
+        this.target = target
+        this.x=target.x-screen.width/70;
+        this.y=target.y-screen.height/70;
     }
-    update(target){
-        this.x =  this.x + ((target.x-screen.width/70) - this.x) * 0.1;
-        this.y =  this.y + ((target.y-screen.height/70) - this.y) * 0.1;
+    update(){
+        this.x =  this.x + ((this.target.x-screen.width/70) - this.x) * 0.1;
+        this.y =  this.y + ((this.target.y-screen.height/70) - this.y) * 0.1;
        // console.log(this.x + " " + player.x)
     }
     draw(){
