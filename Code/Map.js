@@ -16,11 +16,13 @@ class Map {
         let mapindex = 0;
         let alpha = 1 / 4;
         for (let z = 0; z < 4; z++) {   
+            
+            let offsetX = (this.player.x - this.camera.x) * (1 + z * 0.025) - (this.player.x - this.camera.x);
+            let offsetY = (this.player.y - this.camera.y) * (1 + z * 0.025) - (this.player.y - this.camera.y);
             for (let y = 0; y < this.currentMap.size.height; y++) {
                 for (let x = 0; x < this.currentMap.size.width; x++) {
 
-                    let offsetX = (this.player.x - this.camera.x) * (1 + z * 0.025) - (this.player.x - this.camera.x);
-                    let offsetY = (this.player.y - this.camera.y) * (1 + z * 0.025) - (this.player.y - this.camera.y);
+                   
 
                     let xx = ((x - this.camera.x) * (1 + z * 0.025) - offsetX) * this.tileSize * this.zoom;
                     let yy =  ((y - this.camera.y) * (1 + z * 0.025) - offsetY) * this.tileSize * this.zoom;

@@ -27,6 +27,8 @@ window.addEventListener('load', function () {
         DIALOG: 2
 
     };
+
+    let gameState = gameStates.EXPLORE;
     class inputHandler {
         constructor() {
             window.addEventListener('keydown', function (e) {
@@ -62,29 +64,39 @@ window.addEventListener('load', function () {
             this.player = new Player;
             this.camera = new Camera(this.player);
             this.map = new Map(this.camera,this.player);
+            this.dialogHandler = new DialogHandler();
         }
         update() {
-            this.player.update(theKeymap);
-            this.camera.update()
-            if (count < txt.length){
-                text += txt[count];
-                //theKeymap.a = false;
-                count++;
+            if (gameState == gameStates.EXPLORE){
+                this.player.update(theKeymap);
+                this.camera.update()
             }
+            if (gameState == gameStates.DIALOG){ 
+                this.dialogHandler.Update();
+            }
+            if (theKeymap.b == true){
+                if (gameState == gameStates.EXPLORE){
+                    gameState = gameStates.DIALOG;
+                    this.dialogHandler.Load("This is A test")
+                    theKeymap.b = false;
+                } else {
+                    gameState = gameStates.EXPLORE;
+                    theKeymap.b = false;
+                }
+            }
+           
         }
 
         draw() {
-            this.player.draw(ctx,this.camera.x,this.camera.y);
-            this.map.Draw(ctx);
-            if (theKeymap.b == false){
-            ctx.fillStyle = "white";
-            ctx.fillRect(screen.width/4,screen.height/4*2.85,screen.width/2,screen.height/4)
-            ctx.fillStyle = "black";
-            ctx.fillRect(screen.width/4+10,screen.height/4*2.85+10,(screen.width/2)-20,(screen.height/4)-20)
-            ctx.font = "48px serif";
-            ctx.fillStyle = "white";
-            ctx.fillText(text, screen.width/4+20, screen.height/4*2.85+50);
-        }
+            if (gameState == gameStates.EXPLORE){
+                this.player.draw(ctx,this.camera.x,this.camera.y);
+                this.map.Draw(ctx);
+            }else if (gameState == gameStates.DIALOG){ 
+                this.player.draw(ctx,this.camera.x,this.camera.y);
+                this.map.Draw(ctx);
+                this.dialogHandler.Draw(ctx);
+                
+            }
         }
         
     }
