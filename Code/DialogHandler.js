@@ -1,6 +1,6 @@
 class DialogHandler{
     DialogHandler(){
-        this.message = "";
+        this.message = " ";
         this.displayMessage = "";
         this.count = 0;
     }

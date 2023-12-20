@@ -28,7 +28,7 @@ window.addEventListener('load', function () {
 
     };
 
-    let gameState = gameStates.EXPLORE;
+    
     class inputHandler {
         constructor() {
             window.addEventListener('keydown', function (e) {
@@ -60,27 +60,28 @@ window.addEventListener('load', function () {
 
     class Game {
         constructor() {
+            this.state = gameStates.EXPLORE;
             this.inputHandler = new inputHandler;
-            this.player = new Player;
+            this.player = new Player(this);
             this.camera = new Camera(this.player);
             this.map = new Map(this.camera,this.player);
             this.dialogHandler = new DialogHandler();
         }
         update() {
-            if (gameState == gameStates.EXPLORE){
+            if (this.state == gameStates.EXPLORE){
                 this.player.update(theKeymap);
                 this.camera.update()
             }
-            if (gameState == gameStates.DIALOG){ 
+            if (this.state == gameStates.DIALOG){ 
                 this.dialogHandler.Update();
             }
             if (theKeymap.b == true){
-                if (gameState == gameStates.EXPLORE){
-                    gameState = gameStates.DIALOG;
-                    this.dialogHandler.Load("This is A test")
+                if (this.state == gameStates.EXPLORE){
+                    this.state = gameStates.DIALOG;
+                    this.dialogHandler.Load("*You did a backflip*")
                     theKeymap.b = false;
                 } else {
-                    gameState = gameStates.EXPLORE;
+                    this.state = gameStates.EXPLORE;
                     theKeymap.b = false;
                 }
             }
@@ -88,10 +89,10 @@ window.addEventListener('load', function () {
         }
 
         draw() {
-            if (gameState == gameStates.EXPLORE){
+            if (this.state == gameStates.EXPLORE){
                 this.player.draw(ctx,this.camera.x,this.camera.y);
                 this.map.Draw(ctx);
-            }else if (gameState == gameStates.DIALOG){ 
+            }else if (this.state == gameStates.DIALOG){ 
                 this.player.draw(ctx,this.camera.x,this.camera.y);
                 this.map.Draw(ctx);
                 this.dialogHandler.Draw(ctx);
