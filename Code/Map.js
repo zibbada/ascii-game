@@ -14,8 +14,8 @@ class Map {
     }
     Draw(ctx) {
         let mapindex = 0;
-        let alpha = 1 / 4;
-        for (let z = 0; z < 4; z++) {   
+        let alpha = 1 / this.currentMap.size.depth;
+        for (let z = 0; z < this.currentMap.size.depth; z++) {   
             
             let offsetX = (this.player.x - this.camera.x) * (1 + z * 0.025) - (this.player.x - this.camera.x);
             let offsetY = (this.player.y - this.camera.y) * (1 + z * 0.025) - (this.player.y - this.camera.y);

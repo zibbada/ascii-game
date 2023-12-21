@@ -26,13 +26,12 @@ class Player {
             this.dirX = 1;
             theKeymap.right = false;
         }
-        let collisionTile = lvl1.collision[this.y + this.dirY][this.x + this.dirX];
+        let collisionTile = this.game.currentMap.collision[this.y + this.dirY][this.x + this.dirX];
         if (collisionTile == 0) {
             this.x += this.dirX;
-            this.y += this.dirY
+            this.y += this.dirY;
         }else if (collisionTile != 1){
-            this.game.dialogHandler.Load(lvl1.actors[collisionTile-2])
-            this.game.state = 2
+            this.game.currentMap.actors[collisionTile-2](this.game);
         }
 
     }

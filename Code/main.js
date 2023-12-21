@@ -64,8 +64,9 @@ window.addEventListener('load', function () {
             this.inputHandler = new inputHandler;
             this.player = new Player(this);
             this.camera = new Camera(this.player);
-            this.map = new Map(this.camera,this.player);
+            this.map = new Map(this.camera,this.player,this);
             this.dialogHandler = new DialogHandler();
+            this.currentMap = lvl1;
         }
         update() {
             if (this.state == gameStates.EXPLORE){
