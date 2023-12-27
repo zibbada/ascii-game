@@ -24,7 +24,8 @@ window.addEventListener('load', function () {
     const gameStates = {
         MENU: 0,
         EXPLORE: 1,
-        DIALOG: 2
+        DIALOG: 2,
+        COMBAT: 3
 
     };
 
@@ -69,14 +70,16 @@ window.addEventListener('load', function () {
             this.currentMap = lvl1;
         }
         update() {
-            if (this.state == gameStates.EXPLORE){
+            if (this.state == gameStates.EXPLORE) {
                 this.player.update(theKeymap);
                 this.camera.update()
-            }
-            if (this.state == gameStates.DIALOG){ 
+            } else if (this.state == gameStates.DIALOG) {
                 this.dialogHandler.Update();
+            } else if (this.state == gameStates.COMBAT) {
+                
             }
-            if (theKeymap.b == true){
+
+                if (theKeymap.b == true) {
                 if (this.state == gameStates.EXPLORE){
                     this.state = gameStates.DIALOG;
                     this.dialogHandler.Load("*You did a backflip*")
