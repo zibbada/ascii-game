@@ -2,9 +2,6 @@
 window.addEventListener('load', function () {
     const canvas = document.getElementById("canvas1");
     const ctx = canvas.getContext("2d");
-    let txt = "Quick Brown Fox jumps over the lazy dog :(!";
-    let text = ""
-    let count = 0;
 
  
 
@@ -66,7 +63,7 @@ window.addEventListener('load', function () {
             this.player = new Player(this);
             this.camera = new Camera(this.player);
             this.map = new Map(this.camera,this.player,this);
-            this.dialogHandler = new DialogHandler();
+            this.dialogHandler = new DialogHandler(this);
             this.currentMap = lvl1;
         }
         update() {
@@ -74,19 +71,19 @@ window.addEventListener('load', function () {
                 this.player.update(theKeymap);
                 this.camera.update()
             } else if (this.state == gameStates.DIALOG) {
-                this.dialogHandler.Update();
+                this.dialogHandler.Update(theKeymap);
             } else if (this.state == gameStates.COMBAT) {
                 
             }
 
-                if (theKeymap.b == true) {
+                if (theKeymap.a == true) {
                 if (this.state == gameStates.EXPLORE){
                     this.state = gameStates.DIALOG;
                     this.dialogHandler.Load("*You did a backflip*")
-                    theKeymap.b = false;
+                    theKeymap.a = false;
                 } else {
                     this.state = gameStates.EXPLORE;
-                    theKeymap.b = false;
+                    theKeymap.a = false;
                 }
             }
            

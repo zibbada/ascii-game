@@ -1,8 +1,8 @@
 class Player {
     constructor(game) {
-        this.game = game
-        this.x = 12;
-        this.y = 12;
+        this.game = game;
+        this.x = 4;
+        this.y = 4;
         this.dirX = 0;
         this.dirY = 0;
     }

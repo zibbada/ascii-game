@@ -125,12 +125,23 @@ let lvl1 = {
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]],
     actors: [function (game) {
         game.state = 2;
-        game.dialogHandler.Load("osodiao")
+        game.dialogHandler.Load("Whoah I cant belive it\nTHE FUCK IS THIS THE SO CALLED NEW LINE?\nAND A SECOND NEW LINE!?\nAND A THRID NEW LINE?!\nOH BOY I AM ABOUT TO CUM, 4TH NEW LINE!?\nFUCK ME JUST FUCK ME FIVE LINES!!!!",
+            function (gamer) {
+                gamer.state = 2;
+                gamer.dialogHandler.Load("Oh Fuck its\nTHE\nSECOND\nDIALOG\nPAGE", function (game) {
+                    game.state = 1;
+                })
+            })
     }, function (game) {
-        game.currentMap = lvlWell;
-        game.map.currentMap = lvlWell;
-        game.player.x =3;
-        game.player.y =3;
+        game.state = 2;
+        game.dialogHandler.Load("*You fell down into the well*",
+            function (game) {
+                game.state = 1;
+            game.currentMap = lvlWell;
+            game.map.currentMap = lvlWell;
+            game.player.x = 3;
+            game.player.y = 3;
+        })
     }]
 }
 
@@ -158,15 +169,15 @@ let lvlWell = {
         0, 68, 0, 0, 0, 68, 0,
         0, 0, 68, 68, 68, 0, 0,],
     collision: [[1, 1, 1, 1, 1, 1, 1],
-                [1, 1, 0, 0, 0, 1, 1],
-                [1, 0, 0, 0, 0, 0, 1],
-                [1, 2, 0, 0, 0, 2, 1],
-                [1, 0, 0, 0, 0, 0, 1],
-                [1, 1, 0, 2, 0, 1, 1],
-                [1, 1, 1, 1, 1, 1, 1],],
-    actors: [function(game){
+    [1, 1, 0, 0, 0, 1, 1],
+    [1, 0, 0, 0, 0, 0, 1],
+    [1, 2, 0, 0, 0, 2, 1],
+    [1, 0, 0, 0, 0, 0, 1],
+    [1, 1, 0, 2, 0, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1],],
+    actors: [function (game) {
         game.state = 2;
         game.dialogHandler.Load("Daddy")
     }]
-    
+
 }
