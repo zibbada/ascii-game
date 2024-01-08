@@ -3,12 +3,12 @@ window.addEventListener('load', function () {
     const canvas = document.getElementById("canvas1");
     const ctx = canvas.getContext("2d");
 
- 
+
 
     canvas.width = screen.width;
     canvas.height = screen.height;
 
-    var theKeymap = {
+    let theKeymap = {
         left: false,
         right: false,
         up: false,
@@ -18,6 +18,11 @@ window.addEventListener('load', function () {
         c: false,
     };
 
+    let mouse = {
+        x: 0,
+        y: 0
+    }
+
     const gameStates = {
         MENU: 0,
         EXPLORE: 1,
@@ -26,7 +31,7 @@ window.addEventListener('load', function () {
 
     };
 
-    
+
     class inputHandler {
         constructor() {
             window.addEventListener('keydown', function (e) {
@@ -52,18 +57,31 @@ window.addEventListener('load', function () {
                 }
             })
 
-            
+            window.addEventListener("mousemove", function (e) {
+                mouse.x = e.clientX;
+                mouse.y = e.clientY;
+            })
+
+            window.addEventListener("mousedown", function (e) {
+                switch (e.button) {
+                    case 0: theKeymap.a = true; break;
+                }
+            })
+
         }
     }
 
     class Game {
-        constructor() {
+        constructor(ctx) {
             this.state = gameStates.EXPLORE;
             this.inputHandler = new inputHandler;
             this.player = new Player(this);
             this.camera = new Camera(this.player);
-            this.map = new Map(this.camera,this.player,this);
+            this.map = new Map(this.camera, this.player, this);
             this.dialogHandler = new DialogHandler(this);
+            this.combatHandler = new CombatHandler(this);
+
+            this.ctx = ctx;
             this.currentMap = lvl1;
         }
         update() {
@@ -73,46 +91,36 @@ window.addEventListener('load', function () {
             } else if (this.state == gameStates.DIALOG) {
                 this.dialogHandler.Update(theKeymap);
             } else if (this.state == gameStates.COMBAT) {
-                
+                this.combatHandler.Update(theKeymap,mouse);
             }
-
-                if (theKeymap.a == true) {
-                if (this.state == gameStates.EXPLORE){
-                    this.state = gameStates.DIALOG;
-                    this.dialogHandler.Load("*You did a backflip*")
-                    theKeymap.a = false;
-                } else {
-                    this.state = gameStates.EXPLORE;
-                    theKeymap.a = false;
-                }
-            }
-           
         }
+
 
         draw() {
-            if (this.state == gameStates.EXPLORE){
-                this.player.draw(ctx,this.camera.x,this.camera.y);
+            if (this.state == gameStates.EXPLORE) {
+                this.player.draw(ctx, this.camera.x, this.camera.y);
                 this.map.Draw(ctx);
-            }else if (this.state == gameStates.DIALOG){ 
-                this.player.draw(ctx,this.camera.x,this.camera.y);
+            } else if (this.state == gameStates.DIALOG) {
+                this.player.draw(ctx, this.camera.x, this.camera.y);
                 this.map.Draw(ctx);
                 this.dialogHandler.Draw(ctx);
-                
+            } else if (this.state == gameStates.COMBAT) {
+                this.combatHandler.Draw(ctx);
             }
         }
-        
+
     }
-    
 
 
-    const game = new Game();
+
+    const game = new Game(ctx);
     function animate() {
         ctx.imageSmoothingEnabled = false;
         ctx.fillStyle = "black";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = "red";
 
-        
+
         game.update();
         game.draw();
         requestAnimationFrame(animate);
