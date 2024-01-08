@@ -1,3 +1,10 @@
+/*
+Author: Tymofiy Spektor
+Date: 8th jan 2024
+Description: the main purpuse was to create this class to easily create gui. 
+             ended up not using it. not commented because did not use it
+*/
+
 class GuiButton {
     constructor(x, y, w, h, func) {
 

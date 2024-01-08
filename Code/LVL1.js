@@ -1,3 +1,18 @@
+/*
+Author: Tymofiy Spektor
+Date: 8th jan 2024
+Description: Maps registry
+*/
+
+/* 
+    registered level
+
+    size - used by for loops in map class to correctly draw level.
+    depth - used for setting the distance between tile layers
+    map - is 1D array that stores tile values for map class to properly draw them (it is one dimensional because Map.draw needs to now the sequential position of a tile)
+    collision map 2d array use by the player to check for the collisions and actors.
+    actors - array stores function  that are executed when player collides with them
+*/
 let lvl1 = {
     size: { width: 25, height: 25, depth: 4 },
     depth: .025,
@@ -101,13 +116,13 @@ let lvl1 = {
     collision: [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 1],
+    [1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 4, 0, 0, 1],
+    [1, 0, 1, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 1],
     [1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 1, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 1],
+    [1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 4, 0, 0, 1],
+    [1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 4, 4,4, 4, 4, 4, 4, 4, 0, 0, 1],
     [1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -125,11 +140,17 @@ let lvl1 = {
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]],
     actors: [function (game) {
         game.state = 2;
-        game.dialogHandler.Load("Whoah I cant belive it\nTHE FUCK IS THIS THE SO CALLED NEW LINE?\nAND A SECOND NEW LINE!?\nAND A THRID NEW LINE?!\nOH BOY I AM ABOUT TO CUM, 4TH NEW LINE!?\nFUCK ME JUST FUCK ME FIVE LINES!!!!",
-            function (gamer) {
-                gamer.state = 2;
-                gamer.dialogHandler.Load("Oh Fuck its\nTHE\nSECOND\nDIALOG\nPAGE", function (game) {
-                    game.state = 1;
+        game.dialogHandler.Load("If only there was second page of the dialog",
+            function () {
+                game.state = 2;
+                game.dialogHandler.Load("Oh, no way! I am happy now!", function () {
+                    game.state = 2;
+                    game.dialogHandler.Load("too bad there are no multiple lines dialog :(", function () {
+                        game.state = 2;
+                        game.dialogHandler.Load("Wait! I cant belive this!\n NO WAY!\n THIS IS THE BEST DAY OF MY LIFE", function () {
+                            game.state = 1;
+                        })
+                    })
                 })
             })
     }, function (game) {
@@ -137,10 +158,15 @@ let lvl1 = {
         game.dialogHandler.Load("*You fell down into the well*",
             function (game) {
                 game.state = 1;
-            game.currentMap = lvlWell;
-            game.map.currentMap = lvlWell;
-            game.player.x = 3;
-            game.player.y = 3;
+                game.currentMap = lvlWell;
+                game.map.currentMap = lvlWell;
+                game.player.x = 3;
+                game.player.y = 3;
+            })
+    }, function (game) {
+        game.state = 2;
+        game.dialogHandler.Load("It is not nice to go over someone's farmland", function(){
+            game.state=1
         })
     }]
 }
@@ -177,7 +203,7 @@ let lvlWell = {
     [1, 1, 1, 1, 1, 1, 1],],
     actors: [function (game) {
         game.state = 2;
-        game.dialogHandler.Load("Daddy")
+        game.dialogHandler.Load("Well, I am in the well")
     }]
 
 }

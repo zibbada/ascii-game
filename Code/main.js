@@ -3,8 +3,6 @@ window.addEventListener('load', function () {
     const canvas = document.getElementById("canvas1");
     const ctx = canvas.getContext("2d");
 
-
-
     canvas.width = screen.width;
     canvas.height = screen.height;
 
