@@ -1,3 +1,9 @@
+/*
+Author: Tymofiy Spektor
+Date: 8th jan 2024
+Description: Main js file
+*/
+
 //start js only after everything is loaded
 window.addEventListener('load', function () {
     //get referance to the canvas
