@@ -11,7 +11,7 @@ class Player {
         
         //define the position of the character
         this.x = 4;
-        this.y = 4;
+        this.y = 20;
 
         //create direction virables, that show where the player wants to go next
         this.dirX = 0;
@@ -62,6 +62,8 @@ class Player {
     }
     //draw method that runs each frame after update method
     draw(ctx, camX, camY) {
+        //set context color to red
+        ctx.fillStyle = "red"
         //draw square at the position of the player with camera offset
         ctx.fillRect((this.x - camX) * 35, (this.y - camY) * 35, 35, 35);
     }

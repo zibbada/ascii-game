@@ -138,6 +138,8 @@ let lvl1 = {
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]],
+    
+    //each time before loading a dialog i chage game state just in case.
     actors: [function (game) {
         game.state = 2;
         game.dialogHandler.Load("If only there was second page of the dialog",
@@ -157,6 +159,7 @@ let lvl1 = {
         game.state = 2;
         game.dialogHandler.Load("*You fell down into the well*",
             function (game) {
+                //wheb loading new map change game state to explore, load map and move player to a new position on a loaded map
                 game.state = 1;
                 game.currentMap = lvlWell;
                 game.map.currentMap = lvlWell;
@@ -203,7 +206,17 @@ let lvlWell = {
     [1, 1, 1, 1, 1, 1, 1],],
     actors: [function (game) {
         game.state = 2;
-        game.dialogHandler.Load("Well, I am in the well")
+        game.dialogHandler.Load("Well, I am in the well", function () {
+            game.state = 2;
+            game.dialogHandler.Load("(you cant go anywhere from here, so just reload the page)\njust joking going to teleport you back right now", function () { 
+                game.state = 1
+                game.currentMap = lvl1;
+                game.map.currentMap = lvl1;
+                game.player.x = 20;
+                game.player.y = 20;
+
+            })
+        })
     }]
 
 }
